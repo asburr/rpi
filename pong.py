@@ -26,13 +26,16 @@ class pong():
     self.money = 10
 
     pygame.init()
+    pygame.key.set_repeat(1) # held keys repeatedly generate an event every 1ms.
     pygame.display.set_caption(f"${self.money}")
     self.screen = pygame.display.set_mode(
       [self.window_width, self.window_height])
 
   def newTarget(self):
-    (tx,ty) = (random.randint(0,self.width-1),0)
     (fx,fy) = self.ball["from"]
+    (tx,ty) = self.ball["from"]
+    while (tx == fx):
+      (tx,ty) = (random.randint(0,self.width-1),0)
     #print(f"{fx},{fy}>{tx},{ty}")
     self.gx = (fx-tx) / (ty-fy)
     self.gy = -1.0

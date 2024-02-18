@@ -13,36 +13,35 @@ class game():
   """ Using unicornhat when it's available to import, or use pygame to emulate unicornhat. This base for a game. There is a points board on the left side that starts midway and turns red when drop below 50% and green when above. The user is a single led that can move using the j and k keys and fire using the f key. """
 
   @classmethod
-  def factory(cls,width:int=8,height:int=8):
+  def factory(cls,factory_cls,width:int=8,height:int=8):
     """ Creates and runs a class of game. """
-    if usePYGAME:
-      (width,height) = (8,8)
-    else:
+    if not usePYGAME:
       (width,height) = unicornhat.get_shape()
-    p = cls(width,height)
+    p = factory_cls(width,height)
     try:
       p.run()
     finally:
       p.__reset__()
 
-  def __init__(self, width, height):
+  def __init__(self, title, width, height):
     self.pause = False
     self.width = width-1 # Last column is the points
+    self.height = height
     self.points = int(self.height/2)
     self.user = (width/2,0) # User starts at the middle on the bottom.
-    self.height = height
     self.white = (255,255,255)
     self.black = (0,0,0)
     self.red = (255,0,0)
     self.green = (0,255,0)
     self.blue = (0,0,255)
+    self.yellow = (255,255,0)
     if usePYGAME:
       self.pixel_size = 15
       self.window_width = width * self.pixel_size
       self.window_height = height * self.pixel_size
       pygame.init()
       # pygame.key.set_repeat(1) # held keys repeatedly generate an event every 1ms.
-      pygame.display.set_caption("PONG")
+      pygame.display.set_caption(title)
       self.screen = pygame.display.set_mode([self.window_width, self.window_height])
     else:
       unicornhat.brightness(0.2)
@@ -59,7 +58,7 @@ class game():
     """ Checks for input being ready to read on stdin. """
     return select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], [])
 
-  def userInput() -> bool:
+  def userInput(self) -> bool:
     """ Redraws user getting user input that may change users position. Return True when user hits f. """
     f = False
     self.draw_led(*self.user,self.black)
@@ -127,13 +126,12 @@ class game():
       else:
         self.draw_led(self.width,y,self.black)
 
-  def check_points(self,sleep:float):
+  def check_points(self):
     """ IS the game over? """
     if usePYGAME:
       pygame.display.update()
     else:
       unicornhat.show()
-    time.sleep(sleep)
     if self.points == 0:
       print(f"Computer won")
       self.__reset__()

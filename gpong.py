@@ -7,7 +7,7 @@ from game import game
 class pong(game):
   """ Simplified version of pong. Must run run as root when using unicornhat. Points in the left column, and the ball bounces on the remaining tiles, with a one-pixel paddle on the first row which can be moved left or right using the j and k keys. The paddle turns red when the paddle misses the ball and points drop by .5, green when the paddle hits the ball and points increase by .5. Points increase up to height of the unicornhat when the user wins. Points decrease to zero when the user has lost. """
   def __init__(self, width, height):
-    super.__init(width,height)
+    super().__init__("PONG",width,height)
     self.ball = {"from": (round(width/2),height-1)}
     self.ball["pos"] = self.ball["from"]
     self.newTarget()
@@ -53,7 +53,7 @@ class pong(game):
     while True:
       sleep = .1
       self.userInput()
-      if pause:
+      if self.pause:
         continue
       (px,py) = self.ball["pos"]
       self.draw_led(px,py,self.black)

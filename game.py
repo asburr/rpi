@@ -132,7 +132,7 @@ class game():
       pygame.display.update()
     else:
       unicornhat.show()
-    if self.points == 0:
+    if self.points <= 0:
       print(f"Computer won")
       self.__reset__()
       sys.exit()

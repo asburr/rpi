@@ -1,26 +1,26 @@
 #!/usr/bin/python3
+# Global imports
 import time
 import unicornhathd
 
+# Global variables
+white_g = (255,255,255)
+black_g = (0,0,0)
 
-white = (255,255,255)
-black = (0,0,0)
-
+# Global code.
 unicornhathd.brightness(0.2)
-(width,height) = unicornhathd.get_shape()
+(width_g,height_g) = unicornhathd.get_shape()
+ymax_g = height_g - 1
+x_g = 0
 
-ymax = height - 1
-
-x = 0
-
-for bounce in range(ymax,0,-2):
-  for y in range(0,ymax,1):
-    unicornhathd.set_pixel(x,y,*white)
+while True:
+  for y_g in range(0,ymax_g,1):
+    unicornhathd.set_pixel(x_g,y_g,*white_g)
     unicornhathd.show()
     time.sleep(.1)
-    unicornhathd.set_pixel(x,y,*black)
-  for y in range(ymax,0,-1):
-    unicornhathd.set_pixel(x,y,*white)
+    unicornhathd.set_pixel(x_g,y_g,*black_g)
+  for y_g in range(ymax_g,0,-1):
+    unicornhathd.set_pixel(x_g,y_g,*white_g)
     unicornhathd.show()
     time.sleep(.1)
-    unicornhathd.set_pixel(x,y,*black)
+    unicornhathd.set_pixel(x_g,y_g,*black_g)

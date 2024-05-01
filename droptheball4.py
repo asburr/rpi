@@ -1,13 +1,10 @@
 #!/usr/bin/python3
-# Global imports
 import time
 import unicornhathd
 
-# Global variables
 white_g = (255,255,255)
 black_g = (0,0,0)
 
-# Global code.
 unicornhathd.brightness(0.2)
 (width_g,height_g) = unicornhathd.get_shape()
 ymax_g = height_g - 1

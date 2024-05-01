@@ -2,10 +2,15 @@ import sys
 import time
 usePYGAME = False
 # Uncomment usePYGAME=True to use pygame instead of unicornhat.
-#usePYGAME = True
+usePYGAME = True
+# Following controls are set programatically depending on usePYGAME being True or False.
 useCURSE = False
 useTERMIOS = False
 useUHAT = False
+useCURSE = False
+useTERMIOS = False
+useUHAT = False
+# When not simulating the hat using pygame, import curses or termops to get keyboard events.
 if not usePYGAME:
   try:
     import unicornhathd
@@ -19,6 +24,7 @@ if not usePYGAME:
   except:
     usePYGAME=True
 if usePYGAME:
+  useUHAT=False
   usePYGAME = True 
   import pygame.gfxdraw
   import pygame
@@ -27,7 +33,7 @@ class game():
   """ Using unicornhat when it's available to import, or use pygame to emulate unicornhat. This base for a game. There is a points board on the left side that starts midway and turns red when drop below 50% and green when above. The user is a single led that can move using the j and k keys and fire using the f key. """
 
   @classmethod
-  def factory(cls,factory_cls,width:int=8,height:int=8):
+  def factory(cls,factory_cls,width:int=16,height:int=16):
     """ Creates and runs a class of game. """
     if useUHAT:
       (width,height) = unicornhathd.get_shape()
@@ -36,10 +42,14 @@ class game():
       stdscr = curses.initscr()
       stdscr.nodelay(True) # True means nonblocking getch().
       curses.noecho() # Dont echo what is typed to screen.
-      stdscr.addstr(2, 5, 'Unicorn HAT HD: Snake')
+      stdscr.addstr(2, 5, 'Unicorn HAT HD')
       stdscr.addstr(4, 5, 'j = LEFT, k = RIGHT, f=Fire, p=PAUSE, r=RESUME')
       stdscr.addstr(6, 5, 'Press Ctrl+C to exit!')
       p.stdscr = stdscr
+    else:
+      print("pygame simulator of Unicord HAT HD")
+      print('j = LEFT, k = RIGHT, f=Fire, p=PAUSE, r=RESUME')
+      print('Press Ctrl+C to exit!')
     try:
       p.run()
     finally:

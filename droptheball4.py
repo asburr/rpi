@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+""" This module demonstrates a solution for drop the drop the ball using "for" loops and "range". The solution is two lines shorter than droptheball.py, but the major benefit is the for loop is a single line of code containg all of the logic. This style of coding is favoured by data scientists and mathematicians. """
+"""
+
 import time
 import unicornhathd
 

@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" This modules demonstrates changing dropthe ball.py to have the ball bounce after being dropped. """
 import time
 import unicornhathd
 

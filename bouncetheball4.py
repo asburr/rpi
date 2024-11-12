@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" This modules demonstrates the improved readability when using an outer "for" loop to bounce the ball in bouncetheball.py. """
+
 import time
 import unicornhathd
 
